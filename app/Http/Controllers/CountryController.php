@@ -86,9 +86,39 @@ class CountryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Country $country)
+    public function update(Request $request, $id)
     {
-        
+        $validated = $request->validate([
+            'country_name' => 'required|string',
+            'capital' => 'required|string',
+            'population' => 'required|numeric',
+            'region' => 'required|string',
+            'currency' => 'required|string',
+            'language' => 'required|string',
+            'flag' => 'required'
+        ]);
+
+        try {
+            $country = Country::find($id);
+
+            if(!$country) {
+                return response()->json(['message' => 'country not found'], 404);
+            }
+
+            $country->update([
+                    'country_name' => $validated['country_name'],
+                    'capital' => $validated['capital'],
+                    'population' => $validated['population'],
+                    'region' => $validated['region'],
+                    'currency' => $validated['currency'],
+                    'language' => $validated['language'],
+                    'flag' => $validated['flag'],
+            ]);
+
+            return response()->json(['status' => 'success', 'country' => $country], 200);
+        } catch (\Throwable $e) {
+            return response()->json(['message' => $e->getMessage()]);
+        }
     }
 
     /**
