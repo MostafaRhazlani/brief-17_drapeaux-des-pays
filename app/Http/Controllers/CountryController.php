@@ -59,9 +59,20 @@ class CountryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Country $country)
+    public function show($id)
     {
-        //
+        try {
+            $country = Country::find($id);
+
+            if($country) {
+                return response()->json(['status' => 'success', 'country' => $country], 201);
+            } else {
+                return response()->json(['message' => 'this country not exist'], 404);
+            }
+        } catch (\Throwable $e) {
+            return response()->json(['message' => $e->getMessage()]);
+        }
+
     }
 
     /**
@@ -77,7 +88,7 @@ class CountryController extends Controller
      */
     public function update(Request $request, Country $country)
     {
-        //
+        
     }
 
     /**
