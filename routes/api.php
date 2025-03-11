@@ -18,4 +18,5 @@ Route::post('/country/store', [CountryController::class, 'store'])->middleware('
 Route::get('/countries', [CountryController::class, 'index'])->middleware('auth:sanctum');
 Route::get('/country/{id}', [CountryController::class, 'show'])->middleware('auth:sanctum');
 Route::put('/country/{id}/update', [CountryController::class, 'update'])->middleware('auth:sanctum');
+Route::post('/country/{id}/delete', [CountryController::class, 'destroy'])->middleware('auth:sanctum');
 
