@@ -14,6 +14,6 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
-Route::post('/country/create', [CountryController::class, 'create'])->middleware('auth:sanctum');
+Route::post('/country/store', [CountryController::class, 'store'])->middleware('auth:sanctum');
 Route::get('/countries', [CountryController::class, 'index'])->middleware('auth:sanctum');
 
